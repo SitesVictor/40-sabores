@@ -1,10 +1,36 @@
 // 40 Sabores — esboço (dados do Instagram oficial; confirmar com a rede)
 const WHATSAPP_REDE = "5527999288961";
 const LOJAS = [
-  { cidade:"Alfredo Chaves", nome:"40 Sabores Alfredo Chaves", end:"Rua Lauro Ferreira Pinto, 407, Centro · CEP 29240-000", zap:"5527999756544", insta:"40sabores_alfredochaves", tag:"Opções sem lactose e sem açúcar" },
-  { cidade:"Guarapari", nome:"40 Sabores Praia do Morro", end:"Loja 1: Shopping Beira Mar · Loja 2: próximo ao Quiosque 8", zap:"", insta:"40saborespraiadomorro", tag:"Encomendas e entregas" },
-  { cidade:"Piúma", nome:"40 Sabores Piúma", end:"Av. Beira Mar, 2118 · próximo ao Orla do Mar", zap:"", insta:"40saborespiuma", tag:"Café e sobremesas" },
-  { cidade:"Vila Velha", nome:"40 Sabores Praia da Costa", end:"R. José Pena Medina, 195 · Praia da Costa", zap:"", insta:"40praiadacosta", tag:"" }
+  { uf:"ES", cidade:"Alfredo Chaves", nome:"40 Sabores Alfredo Chaves", end:"Rua Lauro Ferreira Pinto, 407, Centro", zap:"5527999756544", insta:"40sabores_alfredochaves", tag:"Opções sem lactose e sem açúcar" },
+  { uf:"ES", cidade:"Aracruz", nome:"40 Sabores Aracruz", end:"Shopping Oriundi e Centro", zap:"", insta:"40saboresaracruz", tag:"Delivery" },
+  { uf:"ES", cidade:"Ibiraçu", nome:"40 Sabores Ibiraçu", end:"Av. Conde D'Eu, 449, Centro", zap:"", insta:"40sabores.ibiracu", tag:"Seg a sáb, 11h às 22h" },
+  { uf:"ES", cidade:"Serra", nome:"40 Sabores Nova Almeida", end:"Nova Almeida", zap:"5527996709924", insta:"40saboresnovaalmeida", tag:"" },
+  { uf:"ES", cidade:"Serra", nome:"40 Sabores Praia de Jacaraípe", end:"Av. Nossa Senhora dos Navegantes, 1293", zap:"", insta:"40saborespraiajacaraipe", tag:"Todo dia, 10h às 22h" },
+  { uf:"ES", cidade:"Serra", nome:"40 Sabores Carone", end:"Carone Mall, Av. Eldes Scherrer Souza, Laranjeiras", zap:"", insta:"40sabores.carone", tag:"" },
+  { uf:"ES", cidade:"Serra", nome:"40 Sabores Laranjeiras", end:"Av. Central, 202, Parque Residencial Laranjeiras", zap:"5527996014457", insta:"40sabores_laranjeiras", tag:"" },
+  { uf:"ES", cidade:"Vitória", nome:"40 Sabores Maria Ortiz", end:"Av. Prof. Fernando Duarte Rabelo, 560", zap:"", insta:"40sabores.mariaortiz", tag:"" },
+  { uf:"ES", cidade:"Vitória", nome:"40 Sabores Rua da Lama", end:"Av. Anísio Fernandes Coelho, 1645, Loja 05, Jardim da Penha", zap:"", insta:"40sabores.ruadalama", tag:"" },
+  { uf:"ES", cidade:"Vitória", nome:"40 Sabores Orla de Camburi", end:"R. Anísio Fernandes Coelho, 30, Loja 4, Jardim da Penha", zap:"", insta:"40sabores_orlacamburi", tag:"" },
+  { uf:"ES", cidade:"Vitória", nome:"40 Sabores Jardim Camburi", end:"Av. Gov. Carlos Lindenberg, 40, Jardim Camburi", zap:"", insta:"40saboresjc", tag:"" },
+  { uf:"ES", cidade:"Vitória", nome:"40 Sabores Praia do Canto", end:"Av. Rio Branco, 1645, Loja 12, Praia do Canto", zap:"", insta:"40saborespc", tag:"" },
+  { uf:"ES", cidade:"Vitória", nome:"40 Sabores Mata da Praia", end:"Mata da Praia", zap:"", insta:"40saboresmatadapraia", tag:"" },
+  { uf:"ES", cidade:"Vitória", nome:"40 Sabores Bento Ferreira", end:"Bento Ferreira", zap:"", insta:"40saboresbentoferreira.es", tag:"Pedir e retirar" },
+  { uf:"ES", cidade:"Vila Velha", nome:"40 Sabores Interlagos", end:"Rodovia do Sol, km 21, Interlagos", zap:"5527997095381", insta:"40saboresinterlagos", tag:"" },
+  { uf:"ES", cidade:"Vila Velha", nome:"40 Sabores Praia de Itaparica", end:"Av. Saturnino Rangel Mauro, 2960, Loja 7, Itaparica", zap:"", insta:"40saboresitaparica", tag:"" },
+  { uf:"ES", cidade:"Vila Velha", nome:"40 Sabores Praia da Costa", end:"R. José Pena Medina, 195, Praia da Costa", zap:"", insta:"40praiadacosta", tag:"3 lojas em Vila Velha" },
+  { uf:"ES", cidade:"Cariacica", nome:"40 Sabores Cariacica", end:"Av. Jerusalém, Vila Palestina", zap:"", insta:"40saborescariacica", tag:"Todo dia, 13h às 22h" },
+  { uf:"ES", cidade:"Cachoeiro de Itapemirim", nome:"40 Sabores Cachoeiro", end:"Gilberto Machado, Cristiano Dias Lopes, 83", zap:"", insta:"40saborescachoeiro", tag:"" },
+  { uf:"ES", cidade:"Colatina", nome:"40 Sabores Colatina", end:"Av. Beira Rio, ao lado do Caraíva Bar", zap:"", insta:"40sabores.colatina", tag:"" },
+  { uf:"ES", cidade:"Domingos Martins", nome:"40 Sabores Domingos Martins", end:"Domingos Martins", zap:"", insta:"40saboresdm", tag:"Desde 2013" },
+  { uf:"ES", cidade:"Guarapari", nome:"40 Sabores Praia do Morro", end:"Loja 1: Shopping Beira Mar · Loja 2: próximo ao Quiosque 8", zap:"", insta:"40saborespraiadomorro", tag:"Encomendas e entregas" },
+  { uf:"ES", cidade:"Guarapari", nome:"40 Sabores Guarapari", end:"Centro", zap:"", insta:"40saboresguarapari", tag:"Sem gordura, lactose e glúten" },
+  { uf:"ES", cidade:"Anchieta", nome:"40 Sabores Iriri", end:"Av. Dom Euvécio, 337, Iriri", zap:"", insta:"40saboresbeach", tag:"Sorvetes, picolés e açaí" },
+  { uf:"ES", cidade:"Piúma", nome:"40 Sabores Piúma", end:"Av. Beira Mar, 2118", zap:"", insta:"40saborespiuma", tag:"Café e sobremesas" },
+  { uf:"RJ", cidade:"Rio de Janeiro", nome:"40 Sabores Crystal Mall", end:"Crystal Mall", zap:"", insta:"40sabores.rj", tag:"Também tem cafeteria" },
+  { uf:"RJ", cidade:"Rio de Janeiro", nome:"40 Sabores Barra da Tijuca", end:"Barra da Tijuca", zap:"", insta:"40saboresbarra", tag:"" },
+  { uf:"RJ", cidade:"Rio de Janeiro", nome:"40 Sabores Tijuca", end:"Tijuca", zap:"", insta:"40saborestijuca", tag:"" },
+  { uf:"RJ", cidade:"Rio de Janeiro", nome:"40 Sabores Recreio", end:"Av. Guilherme de Almeida, 83, Recreio", zap:"", insta:"40saboresrecreio", tag:"" },
+  { uf:"MG", cidade:"Contagem", nome:"40 Sabores Contagem", end:"Rua Dom Silvério, 150, Loja 4", zap:"", insta:"40saborescontagem", tag:"Tel. (31) 2585-2909" }
 ];
 const zap = (num, txt) => "https://wa.me/" + num + "?text=" + encodeURIComponent(txt);
 const ZAP_ICO = '<svg viewBox="0 0 24 24" width="30" height="30" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .2-3.200-.7-2.700-1.100-4.400-3.800-4.600-4-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.400 0 .5l-.4.600c-.1.200-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.200 1 2.100 1.300 2.400 1.500.3.100.5.100.6-.1l.9-1.100c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.200.1.700-.1 1.200z"/></svg>';
