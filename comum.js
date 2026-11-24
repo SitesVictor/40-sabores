@@ -88,9 +88,9 @@ function bolhas(el, lista, opc){
   });
   el.innerHTML = "";
   ordem.forEach((k,i) => {
-    const [c,u] = k.split("|"), n = g[k], d = Math.min(196, 100 + (n-1)*16);
+    const [c,u] = k.split("|"), n = g[k], d = Math.min(176, 96 + (n-1)*14);
     const b = document.createElement(opc.href ? "a" : "button");
-    b.className = "bol c"+(i%4)+(opc.ativa===c ? " on" : "");
+    b.className = "bol"+(n>=3 ? " g" : "")+(opc.ativa===c ? " on" : "");
     b.style.setProperty("--d", d+"px"); b.style.setProperty("--i", i);
     if (opc.href) b.href = opc.href(c); else { b.type="button"; b.setAttribute("aria-pressed", opc.ativa===c); b.onclick = () => opc.fn(c); }
     b.innerHTML = "<b>"+c+"</b><small>"+(n>1 ? n+" lojas" : u)+"</small>";
