@@ -2,12 +2,12 @@
 <title>Lojas — 40 Sabores</title><meta name="description" content="Encontre a 40 Sabores mais perto de você: endereço, WhatsApp e Instagram.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css"></head><body>
+<link rel="stylesheet" href="estilo.css?v=3"></head><body>
 <main><section class="topo-pg"><div class="wrap"><h1>Encontre sua 40 Sabores.</h1><p>Escolha a cidade e fale direto com a loja.</p></div></section>
 <div class="barra"><div class="wrap" style="padding-top:1.4rem"><form class="busca" onsubmit="return false" role="search"><label class="sr" for="q">Buscar cidade</label><input id="q" type="search" placeholder="Digite sua cidade" autocomplete="off"></form></div></div>
 <div class="wrap"><div class="lojas" id="lista"></div><p class="vazio" id="vazio" hidden>Nenhuma loja encontrada. Tente outra cidade ou fale com a rede pelo WhatsApp.</p>
 <p class="nota">Lista em construção. Endereços e telefones serão confirmados com cada unidade.</p></div></main>
-<script src="comum.js"></script><script>
+<script src="comum.js?v=3"></script><script>
 montarLayout("lojas");
 const norm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 const q0=new URLSearchParams(location.search).get("q")||"";document.getElementById("q").value=q0;
