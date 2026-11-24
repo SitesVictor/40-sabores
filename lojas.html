@@ -1,18 +1,20 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lojas — 40 Sabores</title><meta name="description" content="Encontre a 40 Sabores mais perto de você: endereço, WhatsApp e Instagram de cada loja.">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<title>Lojas — 40 Sabores</title><meta name="description" content="Encontre a 40 Sabores mais perto de você: endereço, WhatsApp e Instagram.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css"></head><body>
-<main><section><div class="wrap"><h1 class="tit">Encontre sua 40 Sabores</h1><p class="sub">Escolha a cidade e fale direto com a loja.</p>
-<div class="busca"><label class="sr" for="q">Buscar cidade</label><input id="q" type="search" placeholder="Digite sua cidade (ex.: Guarapari)"></div>
-<div class="lojas" id="lista"></div><p class="vazio" id="vazio" hidden>Nenhuma loja encontrada. Tente outra cidade ou fale com a rede pelo WhatsApp.</p>
-<p class="ps" style="text-align:center;margin-top:1.4rem">Lista em construção. Endereços e telefones serão confirmados com cada unidade.</p></div></section></main>
+<main><section class="topo-pg"><div class="wrap"><h1>Encontre sua 40 Sabores.</h1><p>Escolha a cidade e fale direto com a loja.</p></div></section>
+<div class="barra"><div class="wrap" style="padding-top:1.4rem"><form class="busca" onsubmit="return false" role="search"><label class="sr" for="q">Buscar cidade</label><input id="q" type="search" placeholder="Digite sua cidade" autocomplete="off"></form></div></div>
+<div class="wrap"><div class="lojas" id="lista"></div><p class="vazio" id="vazio" hidden>Nenhuma loja encontrada. Tente outra cidade ou fale com a rede pelo WhatsApp.</p>
+<p class="nota">Lista em construção. Endereços e telefones serão confirmados com cada unidade.</p></div></main>
 <script src="comum.js"></script><script>
 montarLayout("lojas");
-const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const norm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+const q0=new URLSearchParams(location.search).get("q")||"";document.getElementById("q").value=q0;
 function desenhar(){const q=norm(document.getElementById("q").value.trim());
  const l=LOJAS.filter(x=>!q||norm(x.cidade+" "+x.nome+" "+x.end).includes(q));
- document.getElementById("lista").innerHTML=l.map(x=>`<article class="loja"><span class="cid">${x.cidade}</span><h3>${x.nome}</h3><p>📍 ${x.end}</p>${x.tag?`<span class="tag">${x.tag}</span>`:""}
- <div class="ac">${x.zap?`<a class="btn b3" target="_blank" rel="noopener" href="${zap(x.zap,"Olá, "+x.nome+"! Vim pelo site.")}">WhatsApp</a>`:`<a class="btn b3" target="_blank" rel="noopener" href="${zap(WHATSAPP_REDE,"Olá! Gostaria de falar com a loja "+x.nome+".")}">Falar pela rede</a>`}<a class="btn b2" target="_blank" rel="noopener" href="https://www.instagram.com/${x.insta}/">Instagram</a></div></article>`).join("");
+ document.getElementById("lista").innerHTML=l.map(x=>`<article class="loja"><span class="cid">${x.cidade}</span><h3>${x.nome}</h3><p>${x.end}</p>${x.tag?`<span class="tag">${x.tag}</span>`:""}
+ <div class="ac">${x.zap?`<a class="btn b-zap" target="_blank" rel="noopener" href="${zap(x.zap,"Olá, "+x.nome+"! Vim pelo site.")}">WhatsApp da loja</a>`:`<a class="btn b-zap" target="_blank" rel="noopener" href="${zap(WHATSAPP_REDE,"Olá! Gostaria de falar com a loja "+x.nome+".")}">Falar pela rede</a>`}<a class="btn b-lin" target="_blank" rel="noopener" href="https://www.instagram.com/${x.insta}/">Instagram</a></div></article>`).join("");
  document.getElementById("vazio").hidden=l.length>0;}
 document.getElementById("q").addEventListener("input",desenhar);desenhar();
 </script></body></html>
