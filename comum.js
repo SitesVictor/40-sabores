@@ -56,8 +56,8 @@ function montarLayout(pagina){
 const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
 function efeitosHome(){
   document.documentElement.classList.add("js");
-  const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); ro.unobserve(e.target); } }), { threshold:.15 });
-  document.querySelectorAll(".t").forEach((t,i) => { t.style.setProperty("--k", i%4); ro.observe(t); });
+  const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); ro.unobserve(e.target); } }), { threshold:.12 });
+  document.querySelectorAll(".rv").forEach((t,i) => { t.style.setProperty("--k", i%6); ro.observe(t); });
   // parallax suave nas fotos do topo
   const h = document.querySelector(".hero");
   if (h && !reduz && matchMedia("(pointer:fine)").matches) h.addEventListener("pointermove", e => {
@@ -74,4 +74,26 @@ function efeitosHome(){
     (function passo(t){ const p = Math.min(1,(t-t0)/dur), v = Math.round(fim*(1-Math.pow(1-p,3))); el.textContent = pre + v; if (p<1) requestAnimationFrame(passo); })(t0);
   }), { threshold:.6 });
   document.querySelectorAll("[data-n]").forEach(n => io.observe(n));
+}
+
+/* bolhas de cidades: cada cidade vira um círculo, maior quanto mais lojas */
+function bolhas(el, lista, opc){
+  opc = opc || {};
+  const g = {};
+  lista.forEach(l => { const k = l.cidade+"|"+l.uf; g[k] = (g[k]||0)+1; });
+  const ordem = Object.keys(g).sort((a,b) => {
+    const A=a.split("|"), B=b.split("|");
+    if (A[1]!==B[1]) return A[1]==="ES"?-1:B[1]==="ES"?1:A[1].localeCompare(B[1]);
+    return g[b]-g[a] || A[0].localeCompare(B[0]);
+  });
+  el.innerHTML = "";
+  ordem.forEach((k,i) => {
+    const [c,u] = k.split("|"), n = g[k], d = Math.min(196, 100 + (n-1)*16);
+    const b = document.createElement(opc.href ? "a" : "button");
+    b.className = "bol c"+(i%4)+(opc.ativa===c ? " on" : "");
+    b.style.setProperty("--d", d+"px"); b.style.setProperty("--i", i);
+    if (opc.href) b.href = opc.href(c); else { b.type="button"; b.setAttribute("aria-pressed", opc.ativa===c); b.onclick = () => opc.fn(c); }
+    b.innerHTML = "<b>"+c+"</b><small>"+(n>1 ? n+" lojas" : u)+"</small>";
+    el.append(b);
+  });
 }

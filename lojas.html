@@ -2,47 +2,57 @@
 <title>Lojas — 40 Sabores</title><meta name="description" content="Encontre a 40 Sabores mais perto de você: endereço, WhatsApp e Instagram.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css?v=7"></head><body>
-<main><section class="topo-pg"><div class="wrap"><h1>Encontre sua 40 Sabores.</h1><p>Escolha a cidade e fale direto com a loja.</p></div></section>
-<div class="barra"><div class="wrap fil">
-<form class="busca" onsubmit="return false" role="search"><label class="sr" for="q">Buscar cidade ou bairro</label><input id="q" type="search" placeholder="Digite sua cidade ou bairro" autocomplete="off"></form>
-<div class="fchips" id="ufs" role="group" aria-label="Estado"></div>
-<div class="fchips fc2" id="cids" role="group" aria-label="Cidade"></div>
-</div></div>
-<div class="wrap"><p class="cont" id="cont" aria-live="polite"></p><div id="lista"></div><p class="vazio" id="vazio" hidden>Nenhuma loja encontrada. Tente outra cidade ou fale com a rede pelo WhatsApp.</p>
-<p class="nota">Lista montada a partir dos perfis públicos da rede no Instagram. Endereços e telefones serão confirmados com cada unidade.</p></div>
+<link rel="stylesheet" href="estilo.css?v=8"></head><body>
+<main>
+<section class="topo-pg"><div class="wrap"><h1>Encontre sua 40 Sabores.</h1><p>Escolha a sua cidade e fale direto com a loja.</p></div></section>
+<div class="sep" style="background:#F6B300" aria-hidden="true"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0 70C200 10 420 120 700 64S1190 0 1440 66V120H0Z" fill="#FFFAEB"/></svg></div>
+<section class="escolha"><div class="wrap">
+ <form class="busca" onsubmit="return false" role="search"><label class="sr" for="q">Buscar cidade ou bairro</label><input id="q" type="search" placeholder="Digite sua cidade ou bairro" autocomplete="off"></form>
+ <div class="ufs" id="ufs" role="group" aria-label="Estado"></div>
+ <p class="dica" id="dica" aria-live="polite"></p>
+ <div class="bolhas" id="bolhas"></div>
+ <section class="painel" id="painel" hidden aria-live="polite"><div class="ph"><h2 id="pt"></h2><button type="button" id="fechar">Ver outras cidades</button></div><div class="cards" id="cards"></div></section>
+ <p class="vazio" id="vazio" hidden>Nenhuma loja encontrada. Tente outra cidade ou fale com a rede pelo WhatsApp.</p>
+ <p class="nota">Lista montada a partir dos perfis públicos da rede no Instagram. Endereços e telefones serão confirmados com cada unidade.</p>
+</div></section>
 </main>
-<script src="comum.js?v=7"></script><script>
+<script src="comum.js?v=8"></script><script>
 montarLayout("lojas");
 const norm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
-const IG='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>';
-const ZP=ZAP_ICO.replace(/width="30" height="30"/,'width="20" height="20"');
-let uf="",cid="";
+const IG='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>';
+const PIN='<svg viewBox="0 0 24 24" width="22" height="22" fill="#2A1409" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.500a2.500 2.500 0 0 1 0 5z"/></svg>';
+const ZP=ZAP_ICO.replace(/width="30" height="30"/,'width="24" height="24"');
 const $=id=>document.getElementById(id);
-const q0=new URLSearchParams(location.search).get("q")||"";$("q").value=q0;
+let uf="",cid="";
 const UFS=[...new Set(LOJAS.map(x=>x.uf))];
-function chip(label,on,fn){const b=document.createElement("button");b.type="button";b.textContent=label;b.setAttribute("aria-pressed",on);b.onclick=fn;return b}
-function filtros(){
+const NOME={ES:"Espírito Santo",RJ:"Rio de Janeiro",MG:"Minas Gerais"};
+function lista(){const q=norm($("q").value.trim());return LOJAS.filter(x=>(!uf||x.uf===uf)&&(!q||norm(x.cidade+" "+x.uf+" "+x.nome+" "+x.end).includes(q)))}
+function abrir(c){cid=c;desenhar(true)}
+function desenhar(rolar){
+ let l=lista();const cs=[...new Set(l.map(x=>x.cidade))];
+ if($("q").value.trim()&&cs.length===1)cid=cs[0];
+ if(cid&&!cs.includes(cid))cid="";
  const u=$("ufs");u.innerHTML="";
- u.append(chip("Todas ("+LOJAS.length+")",!uf,()=>{uf="";cid="";desenhar()}));
- UFS.forEach(e=>u.append(chip(e+" ("+LOJAS.filter(x=>x.uf===e).length+")",uf===e,()=>{uf=uf===e?"":e;cid="";desenhar()})));
- const c=$("cids");c.innerHTML="";
- const base=LOJAS.filter(x=>!uf||x.uf===uf),cont={};base.forEach(x=>cont[x.cidade]=(cont[x.cidade]||0)+1);
- Object.keys(cont).filter(k=>cont[k]>1).forEach(k=>c.append(chip(k+" ("+cont[k]+")",cid===k,()=>{cid=cid===k?"":k;desenhar()})));
- c.hidden=!c.children.length;
-}
-function desenhar(){
- const q=norm($("q").value.trim());
- const l=LOJAS.filter(x=>(!uf||x.uf===uf)&&(!cid||x.cidade===cid)&&(!q||norm(x.cidade+" "+x.uf+" "+x.nome+" "+x.end).includes(q)));
- const g={};l.forEach(x=>(g[x.cidade+"|"+x.uf]=g[x.cidade+"|"+x.uf]||[]).push(x));
- $("lista").innerHTML=Object.keys(g).map(k=>{const [c,e]=k.split("|");return `<section class="grp"><h2>${c} <small>${e}</small></h2><div class="lojas">`+g[k].map(x=>{
+ [["","Todas"]].concat(UFS.map(e=>[e,NOME[e]||e])).forEach(([v,t])=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.setAttribute("aria-pressed",uf===v);b.onclick=()=>{uf=v;cid="";desenhar()};u.append(b)});
+ bolhas($("bolhas"),l,{ativa:cid,fn:abrir});
+ $("bolhas").hidden=!!cid&&false;
+ $("dica").textContent=l.length?(cid?"":"Toque na sua cidade para ver as lojas."):"";
+ $("vazio").hidden=l.length>0;
+ const p=$("painel");
+ if(!cid){p.hidden=true;return}
+ const ls=l.filter(x=>x.cidade===cid);
+ $("pt").innerHTML=cid+"<small>"+ls[0].uf+" · "+ls.length+(ls.length>1?" lojas":" loja")+"</small>";
+ $("cards").innerHTML=ls.map(x=>{
   const lnk=x.zap?zap(x.zap,"Olá, "+x.nome+"! Vim pelo site."):zap(WHATSAPP_REDE,"Olá! Gostaria de falar com a loja "+x.nome+".");
-  const t=x.zap?"WhatsApp da loja "+x.nome:"Falar pela rede sobre "+x.nome;
-  return `<article class="loja"><div class="inf"><h3>${x.nome.replace("40 Sabores ","")===x.cidade?"40 Sabores":x.nome.replace("40 Sabores ","")}</h3><p>${x.end}</p>${x.tag?`<span class="tag">${x.tag}</span>`:""}</div>
-  <div class="ac"><a class="ic z" target="_blank" rel="noopener" href="${lnk}" aria-label="${t}" title="${x.zap?"WhatsApp da loja":"Falar pela rede"}">${ZP}</a><a class="ic i" target="_blank" rel="noopener" href="https://www.instagram.com/${x.insta}/" aria-label="Instagram de ${x.nome}" title="Instagram">${IG}</a></div></article>`}).join("")+`</div></section>`}).join("");
- const n=l.length,nc=Object.keys(g).length;
- $("cont").textContent=n?(n+(n>1?" lojas":" loja")+" em "+nc+(nc>1?" cidades":" cidade")):"";
- $("vazio").hidden=n>0;filtros();
+  const t=x.zap?"WhatsApp da loja":"Falar pela rede";
+  return `<article class="loja"><span class="pin">${PIN}</span><div class="inf"><h3>${x.nome.replace("40 Sabores ","")===x.cidade?"40 Sabores":x.nome.replace("40 Sabores ","")}</h3>${x.end!==x.nome.replace("40 Sabores ","")?`<p>${x.end}</p>`:""}${x.tag?`<span class="tag">${x.tag}</span>`:""}</div>
+  <div class="ac"><a class="ic z" target="_blank" rel="noopener" href="${lnk}" aria-label="${t}: ${x.nome}" title="${t}">${ZP}</a><a class="ic i" target="_blank" rel="noopener" href="https://www.instagram.com/${x.insta}/" aria-label="Instagram: ${x.nome}" title="Instagram">${IG}</a></div></article>`}).join("");
+ p.hidden=false;
+ if(rolar&&!reduz)p.scrollIntoView({behavior:"smooth",block:"start"});
 }
-$("q").addEventListener("input",desenhar);desenhar();
+$("fechar").onclick=()=>{cid="";desenhar();$("bolhas").scrollIntoView({behavior:"smooth",block:"center"})};
+$("q").addEventListener("input",()=>{cid="";desenhar()});
+const q0=new URLSearchParams(location.search).get("q")||"";
+if(q0){const c=LOJAS.find(x=>norm(x.cidade)===norm(q0));if(c){cid=c.cidade}else{$("q").value=q0}}
+desenhar();
 </script></body></html>
