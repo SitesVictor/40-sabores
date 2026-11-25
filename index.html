@@ -2,12 +2,12 @@
 <title>40 Sabores — sorvete de verdade, desde 1989</title><meta name="description" content="40 Sabores: sorvete, picolé, açaí e milkshake com fabricação própria desde 1989. Encontre a loja mais perto de você.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css?v=9"></head><body>
+<link rel="stylesheet" href="estilo.css?v=13"></head><body>
 <main>
-<section class="hero"><div class="wrap">
+<section class="hero"><div class="conf" id="conf1" aria-hidden="true"></div><div class="wrap">
  <div>
   <div class="chips-top"><i></i>Desde 1989 · fabricação própria</div>
-  <h1><span class="l"><span>Sorvete</span></span><span class="l"><span>de verdade,</span></span><span class="l"><span>desde 1989.</span></span></h1>
+  <h1><span class="l"><span>Sorvete</span></span><span class="l"><span>de verdade,</span></span><span class="l"><span>desde <em>1989</em>.</span></span></h1>
   <p class="l-sub">Sorvete, picolé, açaí e milkshake feitos pela própria rede. Ache a 40 Sabores mais perto de você.</p>
   <div class="bt"><a class="btn b-esc" href="lojas.html">Encontrar uma loja</a><a class="btn b-lin" href="#sabores">Ver sabores</a></div>
   <div class="stats"><div><b>1989</b><span>começou a história</span></div><div><b data-n="80" data-pre="+">+80</b><span>lojas pelo Brasil</span></div><div><b>100%</b><span>fabricação própria</span></div></div>
@@ -16,7 +16,8 @@
   <figure class="pf pf1"><img src="foto-casquinha.jpg" alt="Casquinha com sorvete de chocolate, calda e cereja"></figure>
   <figure class="pf pf2"><img src="foto-copo.jpg" alt="Copinho 40 Sabores com sorvete de chocolate e calda" style="object-position:40% 50%"></figure>
   <figure class="pf pf3"><img src="foto-jaca.jpg" alt="Sorvete cremoso de jaca sendo servido"></figure>
-  <div class="selo" aria-hidden="true"><svg viewBox="0 0 140 140"><defs><path id="c" d="M70 70m-52 0a52 52 0 1 1 104 0a52 52 0 1 1 -104 0"/></defs><circle cx="70" cy="70" r="68" fill="#2A1409"/><text font-family="Bricolage Grotesque,Arial Black,sans-serif" font-weight="800" font-size="14.5" fill="#F6B300" letter-spacing="2.2"><textPath href="#c">DESDE 1989 • FABRICAÇÃO PRÓPRIA •</textPath></text><text x="70" y="82" text-anchor="middle" font-family="Bricolage Grotesque,Arial Black,sans-serif" font-weight="800" font-size="34" fill="#F6B300">40</text></svg></div>
+  <div class="adesivo a1" aria-hidden="true">sem lactose<br>e zero açúcar</div><div class="adesivo a2" aria-hidden="true">100% cremoso</div>
+  <div class="selo" aria-hidden="true"><svg viewBox="0 0 140 140"><defs><path id="c" d="M70 70m-52 0a52 52 0 1 1 104 0a52 52 0 1 1 -104 0"/></defs><circle cx="70" cy="70" r="68" fill="#2A1409"/><text font-family="Bricolage Grotesque,Arial Black,sans-serif" font-weight="800" font-size="13" fill="#F6B300"><textPath href="#c" textLength="320" lengthAdjust="spacing">DESDE 1989 • FABRICAÇÃO PRÓPRIA •</textPath></text><text x="70" y="82" text-anchor="middle" font-family="Bricolage Grotesque,Arial Black,sans-serif" font-weight="800" font-size="34" fill="#F6B300">40</text></svg></div>
  </div>
 </div></section>
 <div class="faixa" aria-label="Alguns sabores e produtos"><div class="trilho" id="trilho"></div></div>
@@ -25,7 +26,14 @@
  <div class="cardimg rv"><img src="foto-jaca.jpg" alt="Sorvete cremoso de jaca sendo servido"><div class="fl"><b>1989</b>onde tudo começou</div></div>
  <div class="rv"><h2>Feito por quem entende de sorvete.</h2>
   <p class="t">A 40 Sabores nasceu em 1989 e hoje está em várias cidades do Espírito Santo, do Rio e de Minas. O sorvete é de fabricação própria, com sabores clássicos, picolés, açaí, milkshake e sobremesas.</p>
+  <div class="pilares"><div class="pil p1"><b>1989</b>nossa origem</div><div class="pil p2"><b>100%</b>fabricação própria</div><div class="pil p3"><b>ES·RJ·MG</b>lojas em 3 estados</div></div>
   <div class="bt"><a class="btn b-esc" href="lojas.html">Ver as lojas</a></div></div>
+</div></section>
+
+<section class="vit"><div class="wrap">
+ <h2 class="rv">Qual bola vai ser hoje?</h2>
+ <p class="intro rv">Alguns dos sabores que a gente ama. O cardápio muda de loja para loja, então confirme na unidade mais perto de você.</p>
+ <div class="bolas" id="bolas"></div>
 </div></section>
 
 <section class="sab" id="sabores"><div class="wrap">
@@ -46,14 +54,16 @@
  <div class="bolhas" id="bolhas"></div>
  <div class="mais"><a class="btn b-gema" href="lojas.html">Ver todas as lojas</a></div></div></section>
 
-<section class="fale"><div class="wrap"><div class="caixa"><div class="cone" id="cone"></div>
+<section class="fale"><div class="wrap"><div class="caixa"><div class="conf" id="conf2" aria-hidden="true"></div><div class="cone" id="cone"></div>
  <h2>Ficou com vontade? Fale com a gente.</h2>
  <div class="bt"><a class="btn b-esc" target="_blank" rel="noopener" href="https://wa.me/5527999288961?text=Ol%C3%A1%2C%2040%20Sabores!%20Vim%20pelo%20site.">Chamar no WhatsApp</a><a class="btn b-lin" target="_blank" rel="noopener" href="https://www.instagram.com/40saboresofc/">Ver o Instagram</a></div>
 </div></div></section>
 </main>
-<script src="comum.js?v=9"></script><script>
+<script src="comum.js?v=10"></script><script>
 montarLayout("inicio");efeitosHome();
 const tr=document.getElementById("trilho");const bloco=SABORES.map(s=>"<span>"+s+"</span>").join("");tr.innerHTML=bloco+bloco;
 bolhas(document.getElementById("bolhas"),LOJAS,{href:c=>"lojas.html?q="+encodeURIComponent(c)});
 document.getElementById("cone").innerHTML=CONE;
+confete(document.getElementById("conf1"),26);confete(document.getElementById("conf2"),18);
+document.getElementById("bolas").innerHTML=BOLAS.map((b,i)=>`<div class="bola rv" style="--c:${b.t}"><div class="arte-b">${bolaSvg(b.c,b.e)}</div><b>${b.n}</b></div>`).join("");
 </script></body></html>

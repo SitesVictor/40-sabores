@@ -37,6 +37,30 @@ const ZAP_ICO = '<svg viewBox="0 0 24 24" width="30" height="30" fill="#fff" ari
 const CONE = '<svg viewBox="0 0 200 280" aria-hidden="true"><path d="M52 118h96L100 262z" fill="#E9A64A" stroke="#2A1409" stroke-width="6" stroke-linejoin="round"/><path d="M70 130l30 112M100 126v124M130 130l-30 112M60 150h80M72 190h56" stroke="#2A1409" stroke-width="3" opacity=".3"/><circle cx="100" cy="92" r="52" fill="#fff" stroke="#2A1409" stroke-width="6"/><circle cx="100" cy="52" r="40" fill="#E8334F" stroke="#2A1409" stroke-width="6"/><circle cx="100" cy="14" r="10" fill="#2A1409"/></svg>';
 const SABORES = ["Nutella","Jaca","Picolé de morango zero","Chocolate com calda","Açaí","Milkshake","Sem lactose","Sem açúcar","Casquinha crocante","Cascão recheado"];
 
+/* sabores ilustrados: cor da bola, cor de sombra e cor do fundo do card */
+const BOLAS = [
+  {n:"Chocolate",c:"#6B3A22",e:"#4A2514",t:"#F3DCC8"},
+  {n:"Morango",c:"#F0577A",e:"#C93A5C",t:"#FFD6DD"},
+  {n:"Jaca",c:"#F6B300",e:"#D18F00",t:"#FFEFB8"},
+  {n:"Açaí",c:"#7A3A8C",e:"#5A2468",t:"#E8D5F2"},
+  {n:"Pistache",c:"#A8CF6B",e:"#85AE48",t:"#E3F1C6"},
+  {n:"Coco",c:"#FFF6E4",e:"#E8D9B8",t:"#F5EBD6"},
+  {n:"Doce de leite",c:"#D9963F",e:"#B5761F",t:"#F9E2C0"},
+  {n:"Nutella",c:"#4A2A1C",e:"#2E1810",t:"#E9D3C3"}
+];
+function bolaSvg(cor, sombra){
+  return `<svg viewBox="0 0 120 150" aria-hidden="true"><path d="M32 82h56L60 146z" fill="#E9A64A" stroke="#2A1409" stroke-width="5" stroke-linejoin="round"/><path d="M44 92l16 46M60 88v54M76 92l-16 46M38 106h44" stroke="#2A1409" stroke-width="2.5" opacity=".28"/><path d="M14 58a46 46 0 0 1 92 0c0 8-6 12-12 10-4-1-6 4-8 9-2 6-9 6-11 0-2-5-6-5-8 0-2 7-11 7-13 0-2-5-6-4-8 1-2 6-10 6-12-1-2-6-8-6-10-10-4 2-10-2-10-9z" fill="${cor}" stroke="#2A1409" stroke-width="5" stroke-linejoin="round"/><path d="M24 62c14 4 22 8 36 6" stroke="${sombra}" stroke-width="5" stroke-linecap="round" fill="none" opacity=".55"/><ellipse cx="38" cy="30" rx="11" ry="7" transform="rotate(-30 38 30)" fill="#fff" opacity=".4"/></svg>`;
+}
+/* granulado colorido espalhado */
+function confete(el, n){
+  if(!el) return;
+  const cores = ["#E8334F","#F6B300","#7A3A8C","#5BB98B","#F0577A","#3A1D10"];
+  for(let i=0;i<n;i++){
+    const s = document.createElement("span");
+    s.style.cssText = `left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;background:${cores[i%cores.length]};transform:rotate(${Math.round(Math.random()*180)}deg);--d:${(5+Math.random()*6).toFixed(1)}s;--a:${(Math.random()*-6).toFixed(1)}s`;
+    el.append(s);
+  }
+}
 function montarLayout(pagina){
   const m = document.createElement("header"); m.className = "menu";
   m.innerHTML = `<a class="logo" href="index.html" aria-label="40 Sabores, início"><span class="n">40</span><span>Sabores</span></a>
